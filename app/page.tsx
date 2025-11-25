@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Header from "./_components/Header";
+import Hero from "./_components/Hero";
 
 /**
  * Default page of the application
@@ -8,11 +8,11 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="font-inter text-2xl uppercase">
-      Welcome
-      <Button>
-        Subscribe
-      </Button>
+    <div className="flex flex-col items-center">
+      {/* Header / Navbar */}
+      <Header />
+      {/* Hero Section */}
+      <Hero />
     </div>
   );
 }
