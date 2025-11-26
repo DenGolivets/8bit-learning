@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,8 +15,10 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { courses } from "@/data/navbar";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const Header = () => {
+  const { user } = useUser();
   return (
     <div className="p-4 max-w-7xl flex justify-between items-center w-full">
       <Link href="/" className="flex gap-2 items-center">
@@ -60,9 +64,27 @@ const Header = () => {
       </NavigationMenu>
 
       {/* Signup Button */}
-      <Button variant={"pixel"} className="font-game text-2xl cursor-pointer">
-        Signup
-      </Button>
+      {!user ? (
+        <Link href="/sign-in">
+          <Button
+            variant={"pixel"}
+            className="font-game text-2xl cursor-pointer"
+          >
+            Signup
+          </Button>
+        </Link>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Button
+            variant={"pixel"}
+            className="font-game text-2xl cursor-pointer"
+          >
+            Dashboard
+          </Button>
+
+          <UserButton />
+        </div>
+      )}
     </div>
   );
 };
