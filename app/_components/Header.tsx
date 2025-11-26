@@ -18,7 +18,7 @@ import { courses } from "@/data/navbar";
 import { UserButton, useUser } from "@clerk/nextjs";
 
 const Header = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   return (
     <div className="p-4 max-w-7xl flex justify-between items-center w-full">
       <Link href="/" className="flex gap-2 items-center">
@@ -64,7 +64,9 @@ const Header = () => {
       </NavigationMenu>
 
       {/* Signup Button */}
-      {!user ? (
+      {!isLoaded ? (
+        <div className="w-24 h-10 bg-gray-800 animate-pulse rounded" />
+      ) : !user ? (
         <Link href="/sign-in">
           <Button
             variant={"pixel"}
@@ -81,7 +83,6 @@ const Header = () => {
           >
             Dashboard
           </Button>
-
           <UserButton />
         </div>
       )}

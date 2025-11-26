@@ -16,7 +16,7 @@ export default function SignInPage() {
           <header className="text-center flex flex-col justify-center items-center">
             <Image src='/logo.png' alt="logo" width={40} height={40} />
             <h1 className="mt-3 text-2xl font-medium tracking-wide text-black uppercase font-game">
-              Sign in to Clover
+              Sign in to 8bit-Courses
             </h1>
           </header>
           <Clerk.GlobalError className="block text-sm text-red-500" />
@@ -49,7 +49,7 @@ export default function SignInPage() {
               <Clerk.Input
                 type="password"
                 required
-                className="w-full px-3 py-2 bg-white border-2 border-black shadow-[3px_3px_0_0_#080] 
+                className="w-full px-3 py-2 bg-white border-2 border-black shadow-[3px_3px_0_0_#000] 
                 outline-none focus:border-yellow-500 focus:bg-[#acb4c2]"
               />
               <Clerk.FieldError className="text-sm text-red-500" />
@@ -58,7 +58,7 @@ export default function SignInPage() {
           {/* SUBMIT BUTTON */}
           <SignIn.Action
             submit
-            className="w-full px-4 py-2 bg-yellow-400 border-2 border-black shadow-[4px_4px_0_0_#000] active: translate-y-0.5 
+            className="w-full px-4 py-2 bg-yellow-400 border-2 border-black shadow-[4px_4px_0_0_#000] active:translate-y-0.5 
             active:shadow-none text-black font-bold uppercase"
           >
             Sign In
