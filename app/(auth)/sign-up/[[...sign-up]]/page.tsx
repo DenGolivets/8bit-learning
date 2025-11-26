@@ -13,7 +13,7 @@ export default function SignUpPage() {
           className="mx-auto w-full sm:w-96 space-y-6 bg-zinc-800 px-4 py-8 border-4 border-black shadow-[8px_8px_0_0_#000]"
         >
           <header className="text-center flex flex-col justify-center items-center">
-            <Image src='/logo.png' alt="logo" width={40} height={40} />
+            <Image src="/logo.png" alt="logo" width={40} height={40} />
             <h1 className="mt-3 text-2xl font-game font-medium tracking-wide text-yellow-400 uppercase">
               Create Account
             </h1>
@@ -43,6 +43,9 @@ export default function SignUpPage() {
                 outline-none focus:border-yellow-400 text-white focus:bg-[#2c3442]"
               />
               <Clerk.FieldError className="text-sm text-red-500" />
+              <p className="text-xs text-gray-400 mt-1">
+                Minimum 8 characters, including letters and numbers
+              </p>
             </Clerk.Field>
           </div>
           <SignUp.Action
@@ -80,6 +83,9 @@ export default function SignUpPage() {
               <Clerk.Input
                 type="otp"
                 required
+                autoComplete="one-time-code"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 className="w-full px-3 py-2 bg-zinc-900 border-2 border-black shadow-[3px_3px_0_0_#000] 
                 outline-none focus:border-yellow-400 text-white"
               />
@@ -129,7 +135,8 @@ export default function SignUpPage() {
           <SignUp.Action
             submit
             className="w-full px-4 py-2 bg-yellow-400 border-2 border-black shadow-[4px_4px_0_0_#000] 
-            active:translate-y-0.5 active:shadow-none text-black font-bold uppercase"
+            active:translate-y-0.5 active:shadow-none text-black font-bold uppercase
+            disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Continue
           </SignUp.Action>
