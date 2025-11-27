@@ -77,12 +77,14 @@ const Header = () => {
         </Link>
       ) : (
         <div className="flex items-center gap-4">
-          <Button
-            variant={"pixel"}
-            className="font-game text-2xl cursor-pointer"
-          >
-            Dashboard
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              variant={"pixel"}
+              className="font-game text-2xl cursor-pointer"
+            >
+              Dashboard
+            </Button>
+          </Link>
           <UserButton />
         </div>
       )}
