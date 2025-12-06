@@ -159,7 +159,7 @@ export const chapstersData = [
       },
       {
         name: "Quote Chamber",
-        slug: "quate-chamber",
+        slug: "quote-chamber",
         xp: 25,
         difficulty: "easy",
       },
@@ -232,7 +232,7 @@ export const chapstersData = [
         difficulty: "easy",
       },
       {
-        name: "Image Grid Challenge frislug",
+        name: "Image Grid Challenge",
         slug: "image-grid-challenge",
         xp: 35,
         difficulty: "medium",
@@ -260,7 +260,7 @@ export const chapstersData = [
   {
     id: 7,
     name: "Lists",
-    desc: "Structure grouped information usingordered, unordered, and description lists.",
+    desc: "Structure grouped information using ordered, unordered, and description lists.",
     exercises: [
       {
         name: "Bullet Creator",
@@ -303,7 +303,7 @@ export const chapstersData = [
   {
     id: 8,
     name: "Tables",
-    desc: "Represent information in structuredgrid format.",
+    desc: "Represent information in structured grid format.",
     exercises: [
       {
         name: "Table Blueprint",
@@ -346,7 +346,7 @@ export const chapstersData = [
   {
     id: 9,
     name: "Forms Basics",
-    desc: "Collect user input using formcontrols like input, labels, and buttons.",
+    desc: "Collect user input using form controls like input, labels, and buttons.",
     exercises: [
       {
         name: "Create a Login Portal",
@@ -389,7 +389,7 @@ export const chapstersData = [
   {
     id: 10,
     name: "Semantic HTML",
-    desc: "Use meaningful HTML elements toimprove page structure and accessibility.",
+    desc: "Use meaningful HTML elements to improve page structure and accessibility.",
     exercises: [
       {
         name: "Build the Layout",
