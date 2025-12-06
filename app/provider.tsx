@@ -28,9 +28,9 @@ const Provider = ({
   return (
     <NextThemesProvider {...props}>
       <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-full">
           <Header />
-          {children}
+          <div className="w-full">{children}</div>
         </div>
       </UserDetailContext.Provider>
     </NextThemesProvider>
