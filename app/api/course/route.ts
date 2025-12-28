@@ -5,7 +5,7 @@ import {
   enrolledCourseTable,
 } from "@/config/schema";
 import { currentUser } from "@clerk/nextjs/server";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       .select()
       .from(enrolledCourseTable)
       //@ts-ignore
-      .where(and(eq(enrolledCourseTable?.courseId, courseId),eq(enrolledCourseTable.userId, user?.primaryEmailAddress?.emailAddress)));
+      .where(and(eq(enrolledCourseTable?.courseId, courseId),eq(enrolledCourseTable.userId,user?.primaryEmailAddress?.emailAddress)));
 
     const isEnrolledCourse = enrolledCourse?.length > 0 ? true : false;
 
@@ -39,9 +39,8 @@ export async function GET(req: NextRequest) {
       courseEnrolledInfo: enrolledCourse[0],
     });
   } else {
+    const result = await db.select().from(courseTable).orderBy(asc(courseTable.id));
+
+    return NextResponse.json(result);
   }
-
-  const result = await db.select().from(courseTable);
-
-  return NextResponse.json(result);
 }
