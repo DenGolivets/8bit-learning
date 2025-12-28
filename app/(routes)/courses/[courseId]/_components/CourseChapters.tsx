@@ -7,7 +7,11 @@ import {
 import { Chapter, CourseType } from "../../_components/CourseList";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface CourseChaptersProps {
   loading: boolean;
@@ -15,6 +19,38 @@ interface CourseChaptersProps {
 }
 
 const CourseChapters = ({ loading, courseDetail }: CourseChaptersProps) => {
+  const enableExercise = (
+    chapterIndex: number,
+    exerciseIndex: number,
+    chapterExercisesLength: number
+  ) => {
+    const completed = courseDetail?.completedExercise;
+
+    // If nothing is completed, enable FIRST exercise ONLY
+    if (!completed || completed.length === 0) {
+      return chapterIndex === 0 && exerciseIndex === 0;
+    }
+
+    // last completed
+    const last = completed[completed.length - 1];
+
+    // Convert to global exercise number
+    const currentExerciseNumber =
+      chapterIndex * chapterExercisesLength + exerciseIndex + 1;
+
+    const lastCompletedNumber =
+      (last.chapterId - 1) * chapterExercisesLength + last.exerciseId;
+
+    return currentExerciseNumber === lastCompletedNumber + 2;
+  };
+
+  const isExerciseCompleted = (chapterId: number, exerciseId: number) => {
+    const completeChapters = courseDetail?.completedExercise;
+    const competeChapter = completeChapters?.find(item => (item.chapterId === chapterId && item.exerciseId === exerciseId));
+    return competeChapter ? true : false;
+  }
+
+
   return (
     <div>
       {courseDetail?.chapters?.length == 0 ? (
@@ -42,30 +78,49 @@ const CourseChapters = ({ loading, courseDetail }: CourseChaptersProps) => {
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="p-7 bg-zinc-900 rounded-xl mt-3">
-                    {chapter?.exercises?.map((exercise, indexExc) => (
-                      <div
-                        key={indexExc}
-                        className="flex items-center justify-between mb-7"
-                      >
-                        <div className="flex items-center gap-10 font-game">
-                          <h2 className="text-3xl">
-                            Excercise{" "}
-                            {index * chapter?.exercises?.length + indexExc + 1}
-                          </h2>
-                          <h2 className="text-3xl">{exercise?.name}</h2>
-                        </div>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant={"pixelDisabled"}>
-                              ???
+                    {chapter?.exercises?.map((exercise, indexExc) => {
+                      return (
+                        <div
+                          key={indexExc}
+                          className="flex items-center justify-between mb-7"
+                        >
+                          <div className="flex items-center gap-10 font-game">
+                            <h2 className="text-3xl">
+                              Excercise{" "}
+                              {index * chapter?.exercises?.length +
+                                indexExc +
+                                1}
+                            </h2>
+                            <h2 className="text-3xl">{exercise?.name}</h2>
+                          </div>
+                          {enableExercise(
+                            index,
+                            indexExc,
+                            chapter?.exercises?.length
+                          ) ? (
+                            <Button variant={"pixel"}>{exercise?.xp} XP</Button>
+                          ) : isExerciseCompleted(
+                              chapter?.chapterId,
+                              indexExc + 1
+                            ) ? (
+                            <Button variant={"pixel"} className="bg-green-600">
+                              Completed
                             </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="font-game text-lg">Please Enroll first</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                    ))}
+                          ) : (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant={"pixelDisabled"}>???</Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="font-game text-lg">
+                                  Please Enroll first
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </AccordionContent>
               </AccordionItem>

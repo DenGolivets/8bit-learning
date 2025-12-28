@@ -34,3 +34,11 @@ export const enrolledCourseTable = pgTable("enrollCourse", {
   enrolledDate: timestamp().defaultNow(),
   xpEarned: integer(),
 });
+
+export const completedExerciseTable = pgTable("complitedExercise", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  courseId: integer(),
+  chapterId: integer(),
+  exerciseId: integer(),
+  userId: varchar(),
+});
