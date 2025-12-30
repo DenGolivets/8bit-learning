@@ -12,6 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Link from "next/link";
 
 interface CourseChaptersProps {
   loading: boolean;
@@ -46,10 +47,15 @@ const CourseChapters = ({ loading, courseDetail }: CourseChaptersProps) => {
 
   const isExerciseCompleted = (chapterId: number, exerciseId: number) => {
     const completeChapters = courseDetail?.completedExercise;
-    const competeChapter = completeChapters?.find(item => (item.chapterId === chapterId && item.exerciseId === exerciseId));
+    const competeChapter = completeChapters?.find(
+      (item) => item.chapterId === chapterId && item.exerciseId === exerciseId
+    );
     return competeChapter ? true : false;
-  }
+  };
 
+  const sortedChapters = [...(courseDetail?.chapters || [])].sort(
+    (a, b) => a.chapterId - b.chapterId
+  );
 
   return (
     <div>
@@ -60,11 +66,11 @@ const CourseChapters = ({ loading, courseDetail }: CourseChaptersProps) => {
         </div>
       ) : (
         <div className="p-5 border-4 rounded-2xl">
-          {courseDetail?.chapters?.map((chapter: Chapter, index) => (
+          {sortedChapters.map((chapter: Chapter, index) => (
             <Accordion
               type="single"
               collapsible
-              key={chapter?.chapterId}
+              key={chapter?.id}
               className="mt-3"
             >
               <AccordionItem value="item-1">
@@ -98,7 +104,11 @@ const CourseChapters = ({ loading, courseDetail }: CourseChaptersProps) => {
                             indexExc,
                             chapter?.exercises?.length
                           ) ? (
-                            <Button variant={"pixel"}>{exercise?.xp} XP</Button>
+                            <Link href={'/courses/' + courseDetail?.courseId + '/' + chapter?.chapterId + '/' + exercise?.slug}>
+                              <Button variant={"pixel"}>
+                                {exercise?.xp} XP
+                              </Button>
+                            </Link>
                           ) : isExerciseCompleted(
                               chapter?.chapterId,
                               indexExc + 1
