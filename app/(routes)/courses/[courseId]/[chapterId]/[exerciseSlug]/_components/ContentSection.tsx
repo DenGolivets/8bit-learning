@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { CourseExercise } from "../page";
 import { Lightbulb } from "lucide-react";
+import DOMPurify from "dompurify";
 
 interface ContentSectionProps {
   courseExerciseData: CourseExercise | undefined;
@@ -12,6 +13,11 @@ const ContentSection = ({
   loading,
 }: ContentSectionProps) => {
   const contentInfo = courseExerciseData?.exerciseData;
+
+  const sanitizeHTML = (html: string | undefined) => {
+    if (!html) return "";
+    return DOMPurify.sanitize(html);
+  };
   return (
     <div className="p-10">
       {loading || !contentInfo || !courseExerciseData ? (
@@ -23,7 +29,7 @@ const ContentSection = ({
           </h2>
           <div
             dangerouslySetInnerHTML={{
-              __html: contentInfo?.exercisesContent?.content,
+              __html: sanitizeHTML(contentInfo?.exercisesContent?.content),
             }}
           />
           <div>
@@ -31,7 +37,7 @@ const ContentSection = ({
             <div
               className="p-4 border rounded-2xl bg-zinc-800 mt-3"
               dangerouslySetInnerHTML={{
-                __html: contentInfo?.exercisesContent?.task,
+                __html: sanitizeHTML(contentInfo?.exercisesContent?.task),
               }}
             />
           </div>
@@ -42,7 +48,7 @@ const ContentSection = ({
             <div
               className="p-4 border rounded-2xl bg-zinc-800 mt-3"
               dangerouslySetInnerHTML={{
-                __html: contentInfo?.exercisesContent?.hint,
+                __html: sanitizeHTML(contentInfo?.exercisesContent?.hint),
               }}
             />
           </div>
