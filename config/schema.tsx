@@ -42,3 +42,12 @@ export const completedExerciseTable = pgTable("complitedExercise", {
   exerciseId: integer(),
   userId: varchar(),
 });
+
+export const exerciseTable = pgTable("exercise", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  courseId: integer(),
+  chapterId: integer(),
+  exerciseId: varchar(),
+  exercisesContent: json(),
+  exerciseName: varchar(),
+});
